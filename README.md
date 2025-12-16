@@ -1,12 +1,19 @@
-# React + Vite
+# 🛒 TechShop - Proyecto Final React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es un E-commerce de tecnología desarrollado con **React**. Permite a los usuarios navegar por un catálogo, filtrar productos y armar un carrito de compras. También incluye un panel de administración para gestionar el inventario.
 
-Currently, two official plugins are available:
+## 🛠️ Tecnologías
+* **React + Vite**
+* **Bootstrap 5** (Estilos)
+* **Context API** (Manejo de estado global)
+* **MockAPI** (Backend simulado)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades
+1.  **Clientes:** Ver productos, buscar por nombre y agregar al carrito.
+2.  **Administrador:** Crear, Editar y Eliminar productos (CRUD completo).
+3.  **Seguridad:** Login simulado con roles (Admin/Usuario).
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Cómo probarlo
+Para ingresar como **Administrador** y probar la edición de productos, usa:
+* **Email:** `admin@admin.com`
+* **Pass:** (Cualquiera)
