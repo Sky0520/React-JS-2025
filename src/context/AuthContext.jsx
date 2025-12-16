@@ -1,29 +1,42 @@
-import { useContext } from 'react';
-import { useState } from 'react';
-import { createContext } from 'react';
+import { createContext, useState, useContext, useEffect } from "react";
 
-// creamos el contexto de Autenticacion 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [usuario, setUsuario] = useState(null);
-  
-  const login = (nombreUsuario) => {
-    // Simulamos 
-    const token = `fake-token-${nombreUsuario}`;
-    localStorage.setItem('authToken', token);
-    setUsuario(nombreUsuario);
-  }                                        
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+      setUser(JSON.parse(usuarioGuardado));
+    }
+  }, []);
+
+  const login = (email) => {
+    // LÓGICA DE ROLES SIMULADA
+    // Si el mail es 'admin@admin.com', le damos rol 'admin'. Si no, 'user'.
+    const rol = email === "admin@admin.com" ? "admin" : "user";
+
+    const usuarioSimulado = { 
+        email, 
+        rol, // Guardamos el rol aquí
+        token: "123456" 
+    };
+
+    setUser(usuarioSimulado);
+    localStorage.setItem("usuario", JSON.stringify(usuarioSimulado));
+  };
+
   const logout = () => {
-    localStorage.removeItem('authToken');
-    setUsuario(null);
+    setUser(null);
+    localStorage.removeItem("usuario");
   };
 
   return (
-    <AuthContext.Provider value={{usuario, login, logout}}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
-  ); 
-}
+  );
+};
 
-export const useAuthContext = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);

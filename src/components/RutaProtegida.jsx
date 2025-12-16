@@ -1,13 +1,12 @@
 import { Navigate } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext";
-//no se pide para la Pre-entrega
-const RutaProtegida = ({children}) => {
-  const { usuario } = useAuthContext();
-  
-  if(!usuario)
+import { useAuth } from "../context/AuthContext";
+
+export default function RutaProtegida({ children }) {
+  const { user } = useAuth();
+
+  if (!user) {
     return <Navigate to="/login" replace />;
-  
+  }
+
   return children;
 }
-
-export default RutaProtegida;

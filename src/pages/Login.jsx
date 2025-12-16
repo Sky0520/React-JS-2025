@@ -1,45 +1,42 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../context/AuthContext';
-// No se pide para la pre-entrega
-const Login = () => {
-  const [usuario, setUsuario] = useState('');
-  const [contrasenia, setContrasenia] = useState('');
-  
-  const { login } = useAuthContext();
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
-  
-  const manejarSubmit = (evento) => {
-    evento.preventDefault();
-    // Simulamos la Autenticacion
-    if(usuario == 'admin' && contrasenia == '1234') {
-      login(usuario);
-      navigate('/admin');
-    } else {
-      alert('Usuario o Contraseña invalido');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email.includes("@")) {
+      return toast.error("Ingresa un email válido");
     }
-  }
+    login(email); // Guardamos el usuario en el contexto
+    toast.success("¡Bienvenido!");
+    navigate("/"); // Redirige al inicio
+  };
 
   return (
-    <>
-      <form onSubmit={manejarSubmit}>
-        <h3>Iniciar Sesion</h3>
-        <label htmlFor=''>Usuario</label>
-        <input 
-          type='text'
-          value={usuario}
-          onChange={(evento) => setUsuario(evento.target.value)}
-        />
-        <label htmlFor=''>Contraseña</label>
-        <input 
-          type='text'
-          value={contrasenia}
-          onChange={(evento) => setContrasenia(evento.target.value)}
-        />
-        <button type='submit'>Iniciar Sesion</button>
-      </form>
-    </>    
+    <div className="container mt-5 d-flex justify-content-center">
+      <div className="card p-4 shadow" style={{ width: "400px" }}>
+        <h2 className="text-center mb-4">Iniciar Sesión</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Email</label>
+            <input 
+              type="email" 
+              className="form-control" 
+              placeholder="ejemplo@correo.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
+          </div>
+          <button type="submit" className="btn btn-primary w-100">Ingresar</button>
+        </form>
+      </div>
+    </div>
   );
 }
-
-export default Login;

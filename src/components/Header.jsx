@@ -1,50 +1,46 @@
-import Navbar from './Navbar';
-import styles from './Header.module.css';
-import BagIcon from '../assets/BagIcon';
-import { Link } from 'react-router-dom';
-import { useAuthContext } from '../context/AuthContext';
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useCarrito } from "../context/CarritoContext";
 
-// Se pide para la pre-entrega
-const Header = ({contadorEnCarrito = 5}) => {
-  const {usuario, logout} = useAuthContext();
-  const estaLogeado = !!usuario;
+export default function Header() {
+  const { user, logout } = useAuth();
+  const { carrito } = useCarrito();
 
   return (
-    <header className={styles.header}>
-      {/*Logo */}
-      <div className={styles.logo}>
-        Sorprise Shop
-      </div>
-      {/* Seccion Central: Componente NavBar */}
-      <div className={styles.navbarContainer}>
-        <Navbar />
-      </div>
-      {/*Iconos*/}
-      <div className={styles.iconsContainer}>
-        { estaLogeado ? 
-          <button onClick={logout} className={styles.login}>Cerrar Sesion </button> 
-          :
-          <Link to="/login">
-            <button className={styles.login}>Ingresá</button>
-          </Link>
-        }
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">🛒 Mi Tienda</Link>
         
-        {/* Icono de Carrito con Contador */}
-        <div className={styles.iconoDeCarrito}>
-          <Link to="/carrito">
-          <BagIcon className={styles.icono} />
-          {/* Renderiza el contador solo si es mayor que 0 */}
-          {contadorEnCarrito > 0 && (
-            <span className={styles.contadorDeCarrito}>
-              {contadorEnCarrito}
-            </span>
-          )}
-          </Link>
+        <div className="d-flex align-items-center gap-3">
+          <Link to="/" className="text-white text-decoration-none">Inicio</Link>
           
+          {user ? (
+            <>
+              {/* SOLO MOSTRAMOS ESTE LINK SI ES ADMIN */}
+              {user.rol === "admin" && (
+                <Link to="/admin" className="text-white text-decoration-none">
+                  🔧 Administrar
+                </Link>
+              )}
+
+              <Link to="/carrito" className="btn btn-primary position-relative">
+                🛒 Carrito
+                {carrito.length > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {carrito.length}
+                  </span>
+                )}
+              </Link>
+              <div className="text-white small ms-2">
+                 Hola, {user.rol === "admin" ? "Admin" : "User"}
+              </div>
+              <button onClick={logout} className="btn btn-outline-light btn-sm">Salir</button>
+            </>
+          ) : (
+            <Link to="/login" className="btn btn-success">Ingresar</Link>
+          )}
         </div>
       </div>
-    </header>   
+    </nav>
   );
-};
-
-export default Header;
+}

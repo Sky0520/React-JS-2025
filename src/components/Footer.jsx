@@ -1,26 +1,14 @@
-// Se pide para la pre-entrega
-import styles from './Footer.module.css';
+import React from 'react';
 
-const Footer = () => {
-  
-  const anioActual = new Date().getFullYear();
-
+export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      <ul className={styles.footerNav}>
-        <li>
-          <a href="#" className={styles.footerLink}>Acerca de Nosotros</a>
-        </li>
-        <li>
-          <a href="#" className={styles.footerLink}>Política de Privacidad</a>
-        </li>
-      </ul>
-      {/* Copyright */}
-      <p className={styles.copyright}>
-        © {anioActual} One Piece. Todos los derechos reservados.
-      </p>
+    <footer className="bg-dark text-light text-center py-4 mt-5">
+      <div className="container">
+        <p className="mb-1">&copy; 2025 Mi Tienda - Talento Tech</p>
+        <p className="mb-0 small text-secondary">
+          Proyecto Final - Desarrollado con React, Bootstrap y Context API.
+        </p>
+      </div>
     </footer>
   );
 }
-
-export default Footer;
