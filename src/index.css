@@ -1,5 +1,19 @@
+/* 1. Importamos la fuente de Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* 2. La aplicamos a todo el cuerpo de la web */
 body {
-  font-family: "Lucida Console", Courier, monospace;
-  max-width: 70%;
-  margin: 0 auto;
+  font-family: 'Poppins', sans-serif !important;
+  background-color: #f8f9fa; /* Un gris muy clarito para que no canse la vista */
+}
+
+/* Opcional: Un retoque para que las tarjetas resalten más */
+.card {
+  border: none !important; /* Quita el borde gris feo */
+  transition: transform 0.2s; /* Animación suave al pasar el mouse */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Se levanta un poquito */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; /* Sombra elegante */
 }
